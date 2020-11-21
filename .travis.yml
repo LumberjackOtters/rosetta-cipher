@@ -5,6 +5,10 @@ python:
   - 3.8
   - "3.8-dev"  # 3.8 development branch
 
+os:
+  - linux
+  - osx
+
 before_install:
 - pip install poetry
 install:
@@ -31,6 +35,5 @@ jobs:
     deploy:
       provider: script
       script: poetry publish --username __token__ --password $PYPI_TOKEN --build
-      skip_cleanup: true
       on:
         tags: true
