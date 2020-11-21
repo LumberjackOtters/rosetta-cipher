@@ -7,7 +7,7 @@ python:
 
 os:
   - linux
-  - osx
+  # - osx # https://travis-ci.community/t/osx-default-environment-with-python-doesnt-work/6116/2
 
 before_install:
 - pip install poetry
