@@ -16,10 +16,9 @@ wozniak = 231
 boring = 10
 
 
-def get_random_name(length: int = 2,
-                    retry: int = 2,
-                    separator: str = "_",
-                    capitalize: bool = False):
+def get_random_name(
+    length: int = 2, retry: int = 2, separator: str = "_", capitalize: bool = False
+):
     """Test"""
 
     adjectives_joined = None
@@ -34,8 +33,8 @@ def get_random_name(length: int = 2,
         )
 
     name = "%s%s%s" % (
-        adjectives_joined if adjectives_joined else '',
-        separator if adjectives_joined else '',
+        adjectives_joined if adjectives_joined else "",
+        separator if adjectives_joined else "",
         scientists[randint(0, scientists_length - 1)],
     )
 
@@ -80,8 +79,8 @@ def get_name(obj=None, length=2, retry=0, separator="_", capitalize=False):
         )
 
     name = "%s%s%s" % (
-        adjectives_joined if adjectives_joined else '',
-        separator if adjectives_joined else '',
+        adjectives_joined if adjectives_joined else "",
+        separator if adjectives_joined else "",
         scientists[hashed % scientists_length],
     )
 

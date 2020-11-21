@@ -10,23 +10,23 @@ def process():
 
 
 @process.command()
-@click.option('--length', '-l', default=2)
-@click.option('--retry', '-r', default=0)
-@click.option('--separator', '-s', default='_', help='Separator')
-@click.option('--capitalize', '-c', default=False, help='capitalize or not')
+@click.option("--length", "-l", default=2)
+@click.option("--retry", "-r", default=0)
+@click.option("--separator", "-s", default="_", help="Separator")
+@click.option("--capitalize", "-c", default=False, help="capitalize or not")
 def random(length, retry, separator, capitalize):
     print(cipher.get_random_name(length, retry, separator, capitalize))
 
 
 @process.command()
-@click.argument('obj', default="")
-@click.option('--length', '-l', default=2)
-@click.option('--retry', '-r', default=0)
-@click.option('--separator', '-s', default='_', help='Separator')
-@click.option('--capitalize', '-c', default=False, help='capitalize or not')
+@click.argument("obj", default="")
+@click.option("--length", "-l", default=2)
+@click.option("--retry", "-r", default=0)
+@click.option("--separator", "-s", default="_", help="Separator")
+@click.option("--capitalize", "-c", default=False, help="capitalize or not")
 def name(obj, length, retry, separator, capitalize):
     print(cipher.get_name(obj, length, retry, separator, capitalize))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     process()

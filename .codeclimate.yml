@@ -1,3 +1,7 @@
 plugins:
   editorconfig:
     enabled: true
+  bandit:
+    enabled: true
+  fixme:
+    enabled: true

@@ -12,11 +12,10 @@ packages = [
 rosetta-cipher = "rosetta_cipher.cli:process"
 
 [tool.poetry.dependencies]
-python = "^3.4"
+python = "^3.6"
 cityhash = "^0.2.3"
 click = "^7.1.2"
 Flask = "^1.1.2"
-gunicorn = "^20.0.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.0"
@@ -44,11 +43,12 @@ msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}"
 
 [tool.taskipy.tasks]
 "test:lint" = "flake8"
-"test:black" = "black ."
 "test:unit" = "pytest -p no:mocha --cov=rosetta_cipher --cov-report term tests/"
-# "test:unit" = "pytest -s -p no:sugar --mocha --cov=rosetta_cipher --cov-report term tests/"
 "test:bandit" = "bandit --ini .bandit -r rosetta_cipher/"
+"format" = "black ."
 "web" = "export FLASK_APP=rosetta_cipher/web.py && flask run"
+"travis:test" = "pytest -p no:mocha --cov=rosetta_cipher --cov-report xml tests/"
+"travis:lint" = "flake8 --format=pylint --output-file=flake8.pylint"
 
 [tool.black]
 line-length = 88

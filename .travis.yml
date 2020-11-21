@@ -1,30 +1,36 @@
 language: python
 python:
-  - 3.4
-  - 3.5
   - 3.6
   - 3.7
   - 3.8
   - "3.8-dev"  # 3.8 development branch
-  - "nightly"  # nightly build
-# env:
-#   global:
-#   - secure: "<encrypted MYPYPI_USER=username>"
-#   - secure: "<encrypted MYPYPI_PASS=p@ssword>"
+
 before_install:
 - pip install poetry
 install:
 - poetry install
+
 script:
 - poetry run task test:unit
-# - poetry run coverage run --source=my_package -m unittest discover -b
-# before_deploy:
-# - poetry config repositories.mypypi http://mypypi.example.com/simple
-# - poetry config http-basic.mypypi $MYPYPI_USER $MYPYPI_PASS
-# - poetry build -f sdist
-# deploy:
-#   provider: script
-#   script: poetry publish -r mypypi
-#   skip_cleanup: true
-#   on:
-#     tags: true
+- poetry run task test:lint
+- poetry run task test:bandit
+
+jobs:
+  include:
+  - stage: Coverage
+    before_script:  # code coverage tool
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
+    script:
+    - poetry run task travis:test
+    after_script:
+    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+  - stage: Publish to pypi
+    deploy:
+      provider: script
+      script: poetry publish --username __token__ --password $PYPI_TOKEN --build
+      skip_cleanup: true
+      on:
+        tags: true
